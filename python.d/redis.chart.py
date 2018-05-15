@@ -154,13 +154,14 @@ class Service(SocketService):
         except (KeyError, ZeroDivisionError, TypeError):
             data['hit_rate'] = 0
 
-        if data['rdb_bgsave_in_progress'] != '0\r':
-            self.bgsave_time += self.update_every
-        else:
-            self.bgsave_time = 0
+        if 'rdb_bgsave_in_progress' in data:
+            if data['rdb_bgsave_in_progress'] != '0\r':
+                self.bgsave_time += self.update_every
+            else:
+                self.bgsave_time = 0
 
-        data['rdb_last_bgsave_status'] = 0 if data['rdb_last_bgsave_status'] == 'ok\r' else 1
-        data['rdb_bgsave_in_progress'] = self.bgsave_time
+            data['rdb_last_bgsave_status'] = 0 if data['rdb_last_bgsave_status'] == 'ok\r' else 1
+            data['rdb_bgsave_in_progress'] = self.bgsave_time
 
         return data
 
