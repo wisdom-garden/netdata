@@ -56,13 +56,14 @@ class Service(SocketService):
                 continue
 
             if ':' in line:     # worker has pattern of 'node:pid:name'
-                worker = line.split(':')[4] + '_worker'
+                worker = line.split(':')[4] + '-worker'
                 if worker in data:
                     data[worker] += 1
                 else:
                     data[worker] = 1
             else:
                 queues.append(line)
+                data[line] = 0
 
         # make another request to get queue length
         self.request = ''.join(['LLEN resque:queue:{}\r\n'.format(q) for q in queues]).encode()
@@ -110,7 +111,7 @@ class Service(SocketService):
             return False
 
         for name in data:
-            if name.endswith('_worker'):
+            if name.endswith('-worker'):
                 self.definitions['workers']['lines'].append([name, None, 'absolute'])
             else:
                 self.definitions['queues']['lines'].append([name, None, 'absolute'])
