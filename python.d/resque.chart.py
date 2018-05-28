@@ -24,17 +24,24 @@ class Service(SocketService):
         self._keep_alive = True
         self.host = self.configuration.get('host', 'localhost')
         self.port = self.configuration.get('port', 6379)
-        self.unix_socket = self.configuration.get('socket')
-        password = self.configuration.get('pass', str())
-        self.auth_request = 'AUTH {}\r\n'.format(password).encode() if password else None
+        self.db = self.configuration.get('db', None)
+        self.password = self.configuration.get('pass', str())
 
     def _get_data(self):
-        if self.auth_request:
-            self.request = self.auth_request
+        if self.password:
+            self.request = 'AUTH {}\r\n'.format(self.password).encode()
             raw = self._get_raw_data().strip()
             if raw != "+OK":
                 self.error("invalid password")
                 return None
+
+        if self.db:
+            self.request = 'SELECT {}\r\n'.format(self.db).encode()
+            raw = self._get_raw_data().strip()
+            if raw != "+OK":
+                self.error("invalid db index")
+                return None
+
 
         self.request = 'KEYS resque:worker:node:*:started\r\nSMEMBERS resque:queues\r\n'.encode()
         response = self._get_raw_data()
