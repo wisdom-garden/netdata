@@ -20,6 +20,7 @@ if __name__ == '__main__':
     config = {
         "job_name": "localhost",
         "override_name": None,
+        "db": 0
     }
 
     config.update(BASE_CONFIG)
