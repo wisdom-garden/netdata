@@ -1,10 +1,10 @@
-import imp
 import os
+from bases.loaders import ModuleAndConfigLoader
+
 
 PYTHON_MODULES_DIR = os.path.abspath(__file__ + '/../../../python.d')
-
-with open(os.path.join(PYTHON_MODULES_DIR, 'rq.chart.py'), 'rb') as fp:
-    rq_chart = imp.load_module('rq_chart', fp, 'rq.chart.py', ('.py', 'rb', imp.PY_SOURCE))
+loader = ModuleAndConfigLoader()
+mod = loader.load_module_from_file("rq", PYTHON_MODULES_DIR + '/' + 'rq.chart.py')[0]
 
 
 if __name__ == '__main__':
@@ -20,13 +20,13 @@ if __name__ == '__main__':
     config = {
         "job_name": "localhost",
         "override_name": None,
-        "rq_dashboard": 'http://localhost:9181'
+        "db": 0
     }
 
     config.update(BASE_CONFIG)
     print(config)
 
-    service = rq_chart.Service(config)
+    service = mod.Service(config)
     # print(service.logger.severity)
     service.logger.severity = 'DEBUG'
     print("check: {}".format(service.check()))
