@@ -1,6 +1,6 @@
 from bases.FrameworkServices.SocketService import SocketService
 
-ORDER = ['workers', 'queues']
+ORDER = ['schedulers', 'workers', 'queues']
 
 CHARTS = {
     'schedulers': {
