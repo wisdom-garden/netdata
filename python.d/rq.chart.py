@@ -55,9 +55,10 @@ class Service(SocketService):
         self.request = 'ZCARD rq:scheduler:scheduled_jobs\r\n'.encode()
         response_scheduled = self._get_raw_data()
         if response_scheduled:
-            data['scheduler-jobs'] = response_scheduled[1]
+            data['scheduler-jobs'] = response_scheduled.split('\r')[0][1:]
 
         self.request = 'KEYS rq:worker:*\r\n'.encode()
+
         response_worker = self._get_raw_data()
 
         if response_worker:
@@ -67,18 +68,15 @@ class Service(SocketService):
                 self.error("response is invalid/empty")
                 return None
 
-            for line in parsed:
+            for line in parsed:  # worker has pattern of 'rq:worker:hostname:pid'
                 if not line or line[0] == '$' or line[0] == '*':
                     continue
 
-                if ':' in line:     # worker has pattern of 'node:pid:name'
-                    worker = line.split(':')[2].split('.')[0] + '-worker'
-                    if worker in data:
-                        data[worker] += 1
-                    else:
-                        data[worker] = 1
+                worker = line.split(':')[2].split('.')[0] + '-worker'
+                if worker in data:
+                    data[worker] += 1
                 else:
-                    data[line] = 0
+                    data[worker] = 1
 
         self.request = 'SMEMBERS rq:queues\r\n'.encode()
         response_queue = self._get_raw_data()
@@ -90,23 +88,22 @@ class Service(SocketService):
                 self.error("response is invalid/empty")
                 return None
 
-            for line in parsed:
+            for line in parsed:  # queue has pattern of 'rq:queue:name'
                 if not line or line[0] == '$' or line[0] == '*':
                     continue
 
-                if ':' in line:     # worker has pattern of 'node:pid:name'
-                    queue = line.split(':')[2] + '-queue'
-                    if queue in data:
-                        data[queue] += self._get_number_for_queue(line)
-                    else:
-                        data[queue] = self._get_number_for_queue(line)
+                queue = line.split(':')[2] + '-queue'
+                if queue in data:
+                    data[queue] += self._get_number_for_queue(line)
+                else:
+                    data[queue] = self._get_number_for_queue(line)
 
         return data
 
     def _get_number_for_queue(self, queue_name):
         self.request = 'LLEN {}\r\n'.format(queue_name).encode()
         raw = self._get_raw_data()
-        return raw[1]
+        return raw.split('\r')[0][1:]
 
     def _check_raw_data(self, data):
         """
@@ -125,6 +122,9 @@ class Service(SocketService):
 
         if len(lines) == supposed * 2 + 1 + 1:      # 1 beginning line and 1 trailing line
             self.debug("received full response from redis")
+            return True
+
+        if len(lines) == 2 and lines[0].startswith(':'):  # command is zcard
             return True
 
         self.debug("waiting more data from redis")
