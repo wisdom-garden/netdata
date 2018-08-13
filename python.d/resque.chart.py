@@ -24,20 +24,33 @@ class Service(SocketService):
         self._keep_alive = True
         self.host = self.configuration.get('host', 'localhost')
         self.port = self.configuration.get('port', 6379)
-        self.unix_socket = self.configuration.get('socket')
-        password = self.configuration.get('pass', str())
-        self.auth_request = 'AUTH {}\r\n'.format(password).encode() if password else None
+        self.db = self.configuration.get('db', None)
+        self.password = self.configuration.get('pass', str())
 
     def _get_data(self):
-        if self.auth_request:
-            self.request = self.auth_request
+        if self.password:
+            self.request = 'AUTH {}\r\n'.format(self.password).encode()
             raw = self._get_raw_data().strip()
             if raw != "+OK":
                 self.error("invalid password")
                 return None
 
-        self.request = 'KEYS resque:worker:node:*:started\r\nSMEMBERS resque:queues\r\n'.encode()
-        response = self._get_raw_data()
+        if self.db:
+            self.request = 'SELECT {}\r\n'.format(self.db).encode()
+            # self.request = 'INFO\r\n'.encode()
+            raw = self._get_raw_data().strip()
+            if raw != "+OK":
+                self.error("invalid db index")
+                return None
+
+
+        self.request = 'KEYS resque:worker:node:*:started\r\n'.encode()
+        response_worker = self._get_raw_data()
+
+        self.request = 'SMEMBERS resque:queues\r\n'.encode()
+        response_queue = self._get_raw_data()
+
+        response = response_worker + response_queue
 
         if response is None:
             # error has already been logged
@@ -56,13 +69,14 @@ class Service(SocketService):
                 continue
 
             if ':' in line:     # worker has pattern of 'node:pid:name'
-                worker = line.split(':')[4] + '_worker'
+                worker = line.split(':')[4] + '-worker'
                 if worker in data:
                     data[worker] += 1
                 else:
                     data[worker] = 1
             else:
                 queues.append(line)
+                data[line] = 0
 
         # make another request to get queue length
         self.request = ''.join(['LLEN resque:queue:{}\r\n'.format(q) for q in queues]).encode()
@@ -90,14 +104,15 @@ class Service(SocketService):
         :param data: str
         :return: boolean
         """
-        length = len(data)
-        supposed = data.split('\n')[0][1:-1]
-        offset = len(supposed) + 4  # 1 dollar sing, 1 new line character + 1 ending sequence '\r\n'
+        lines = data.split('\n')
+        supposed = lines[0][1:-1]
+
         if not supposed.isdigit():
             return True
+
         supposed = int(supposed)
 
-        if length - offset >= supposed:
+        if len(lines) == supposed * 2 + 1 + 1:      # 1 beginning line and 1 trailing line
             self.debug("received full response from redis")
             return True
 
@@ -110,7 +125,7 @@ class Service(SocketService):
             return False
 
         for name in data:
-            if name.endswith('_worker'):
+            if name.endswith('-worker'):
                 self.definitions['workers']['lines'].append([name, None, 'absolute'])
             else:
                 self.definitions['queues']['lines'].append([name, None, 'absolute'])
