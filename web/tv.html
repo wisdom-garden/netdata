@@ -22,6 +22,18 @@
           content="Stunning real-time dashboards, blazingly fast and extremely interactive. Zero configuration, zero dependencies, zero maintenance."/>
 
 </head>
+<style>
+    .server > div {
+        background-color: #1F1D1E;
+        margin: 5px;
+        border: 2px solid #242324;
+    }
+
+    .item > div > div {
+        margin-right: 50px;
+    }
+</style>
+
 <script>
     // this section has to appear before loading dashboard.js
 
@@ -84,123 +96,106 @@
     }, RELOAD_EVERY * 60 * 1000);
 
 </script>
-<body>
+<body style="background-color: #141414">
 <div style="width: 100%; height: 23vh; text-align: center; display: inline-block;">
-        <div style="width: 100%; height: 15px; text-align: center; display: inline-block;">
-            <b>Netdata statistics on both servers</b>
+    <div style="width: 100%; height: 15px; text-align: center; display: inline-block;">
+    </div>
+    <div style="width: 100%; max-height: calc(100% - 15px); text-align: center; display: inline-block;" class="server">
+        <div style="width: 49%; height:100%; align: center; display: inline-block;" class="item">
+            <a href="http://ouya-138.frp.tronclass.com.cn:19999">Database Server</a>
+            <br/>
+            <div>
+                <div data-netdata="system.swap"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-append-options="percentage"
+                     data-dimensions="used"
+                     data-chart-library="easypiechart"
+                     data-title="Used Swap"
+                     data-units="%"
+                     data-easypiechart-max-value="100"
+                     data-width="15%"
+                     data-before="0"
+                     data-after="-540"
+                     data-points="540"
+                     data-colors="#DD4400"
+                ></div>
+                <div data-netdata="system.cpu"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-chart-library="gauge"
+                     data-title="CPU"
+                     data-units="%"
+                     data-gauge-max-value="100"
+                     data-width="30%"
+                     data-after="-540"
+                     data-points="540"
+                     data-colors="#22AA99"
+                ></div>
+                <div data-netdata="system.ram"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-dimensions="used|buffers|active|wired"
+                     data-append-options="percentage"
+                     data-chart-library="easypiechart"
+                     data-title="Used RAM"
+                     data-easypiechart-max-value="100"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-units="%"
+                     data-colors="#EE9911"
+                ></div>
+            </div>
+            <div>
+                <div data-netdata="system.io"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-dimensions="in"
+                     data-chart-library="easypiechart"
+                     data-title="Disk Read"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.io.mainhead"
+                ></div>
+                <div data-netdata="system.io"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-dimensions="out"
+                     data-chart-library="easypiechart"
+                     data-title="Disk Write"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.io.mainhead"
+                ></div>
+                <div data-netdata="system.net"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-dimensions="received"
+                     data-chart-library="easypiechart"
+                     data-title="Net Inbound"
+                     data-width="15%"
+                     data-before="0"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.net.mainhead"
+                ></div>
+                <div data-netdata="system.net"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-dimensions="sent"
+                     data-chart-library="easypiechart"
+                     data-title="Net Inbound"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.net.mainhead"
+                ></div>
+            </div>
+
         </div>
-        <div style="width: 100%; max-height: calc(100% - 15px); text-align: center; display: inline-block;">
-            <div style="width: 49%; height:100%; align: center; display: inline-block;">
-                <a href="http://ouya-138.frp.tronclass.com.cn:19999">http://ouya-138.frp.tronclass.com.cn:19999</a>
-                <br/>
-                <div data-netdata="system.swap"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-append-options="percentage"
-                     data-dimensions="used"
-                     data-chart-library="easypiechart"
-                     data-title="Used Swap"
-                     data-units="%"
-                     data-easypiechart-max-value="100"
-                     data-width="15%"
-                     data-before="0"
-                     data-after="-540"
-                     data-points="540"
-                     data-colors="#DD4400"
-                ></div>
-                <div data-netdata="system.io"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-dimensions="in"
-                     data-chart-library="easypiechart"
-                     data-title="Disk Read"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.io.mainhead"
-                ></div>
-                <div data-netdata="system.io"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-dimensions="out"
-                     data-chart-library="easypiechart"
-                     data-title="Disk Write"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.io.mainhead"
-                ></div>
-                <div data-netdata="system.cpu"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-chart-library="gauge"
-                     data-title="CPU"
-                     data-units="%"
-                     data-gauge-max-value="100"
-                     data-width="30%"
-                     data-after="-540"
-                     data-points="540"
-                     data-colors="#22AA99"
-                ></div>
-                <div data-netdata="system.net"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-dimensions="received"
-                     data-chart-library="easypiechart"
-                     data-title="Net Inbound"
-                     data-width="15%"
-                     data-before="0"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.net.mainhead"
-                ></div>
-                <div data-netdata="system.net"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-dimensions="sent"
-                     data-chart-library="easypiechart"
-                     data-title="Net Inbound"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.net.mainhead"
-                ></div>
-                <div data-netdata="system.ram"
-                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-                     data-dimensions="used|buffers|active|wired"
-                     data-append-options="percentage"
-                     data-chart-library="easypiechart"
-                     data-title="Used RAM"
-                     data-easypiechart-max-value="100"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-units="%"
-                     data-colors="#EE9911"
-                ></div>
-            </div>
-            <div style="width: 49%; height:100%; align: center; display: inline-block;">
-                <a href="http://ouya-128.frp.tronclass.com.cn:19999">http://ouya-128.frp.tronclass.com.cn:19999</a>
-                <br/>
-                <div data-netdata="system.io"
-                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
-                     data-dimensions="in"
-                     data-chart-library="easypiechart"
-                     data-title="Disk Read"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.io.mainhead"
-                ></div>
-                <div data-netdata="system.io"
-                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
-                     data-dimensions="out"
-                     data-chart-library="easypiechart"
-                     data-title="Disk Write"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.io.mainhead"
-                ></div>
+        <div style="width: 49%; height:100%; align: center; display: inline-block;" class="item">
+            <a href="http://ouya-128.frp.tronclass.com.cn:19999">Media Server</a>
+            <br/>
+            <div>
                 <div data-netdata="system.cpu"
                      data-host="http://ouya-128.frp.tronclass.com.cn:19999"
                      data-chart-library="gauge"
@@ -211,28 +206,6 @@
                      data-after="-540"
                      data-points="540"
                      data-colors="#22AA99"
-                ></div>
-                <div data-netdata="system.net"
-                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
-                     data-dimensions="received"
-                     data-chart-library="easypiechart"
-                     data-title="Net Inbound"
-                     data-width="15%"
-                     data-before="0"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.net.mainhead"
-                ></div>
-                <div data-netdata="system.net"
-                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
-                     data-dimensions="sent"
-                     data-chart-library="easypiechart"
-                     data-title="Net Inbound"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.net.mainhead"
                 ></div>
                 <div data-netdata="system.ram"
                      data-host="http://ouya-128.frp.tronclass.com.cn:19999"
@@ -248,9 +221,58 @@
                      data-colors="#EE9911"
                 ></div>
             </div>
-            <div style="width: 49%; height:100%; align: center; display: inline-block;">
-                <a href="http://ouya-122.frp.tronclass.com.cn:19999">http://ouya-122.frp.tronclass.com.cn:19999</a>
-                <br/>
+            <div>
+                <div data-netdata="system.io"
+                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
+                     data-dimensions="in"
+                     data-chart-library="easypiechart"
+                     data-title="Disk Read"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.io.mainhead"
+                ></div>
+                <div data-netdata="system.io"
+                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
+                     data-dimensions="out"
+                     data-chart-library="easypiechart"
+                     data-title="Disk Write"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.io.mainhead"
+                ></div>
+                <div data-netdata="system.net"
+                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
+                     data-dimensions="received"
+                     data-chart-library="easypiechart"
+                     data-title="Net Inbound"
+                     data-width="15%"
+                     data-before="0"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.net.mainhead"
+                ></div>
+                <div data-netdata="system.net"
+                     data-host="http://ouya-128.frp.tronclass.com.cn:19999"
+                     data-dimensions="sent"
+                     data-chart-library="easypiechart"
+                     data-title="Net Inbound"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.net.mainhead"
+                ></div>
+            </div>
+
+        </div>
+        <div style="width: 49%; height:100%; align: center; display: inline-block;" class="item">
+            <a href="http://ouya-122.frp.tronclass.com.cn:19999">Web-01 Server</a>
+            <br/>
+            <div>
                 <div data-netdata="system.swap"
                      data-host="http://ouya-122.frp.tronclass.com.cn:19999"
                      data-append-options="percentage"
@@ -265,28 +287,6 @@
                      data-points="540"
                      data-colors="#DD4400"
                 ></div>
-                <div data-netdata="system.io"
-                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
-                     data-dimensions="in"
-                     data-chart-library="easypiechart"
-                     data-title="Disk Read"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.io.mainhead"
-                ></div>
-                <div data-netdata="system.io"
-                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
-                     data-dimensions="out"
-                     data-chart-library="easypiechart"
-                     data-title="Disk Write"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.io.mainhead"
-                ></div>
                 <div data-netdata="system.cpu"
                      data-host="http://ouya-122.frp.tronclass.com.cn:19999"
                      data-chart-library="gauge"
@@ -297,28 +297,6 @@
                      data-after="-540"
                      data-points="540"
                      data-colors="#22AA99"
-                ></div>
-                <div data-netdata="system.net"
-                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
-                     data-dimensions="received"
-                     data-chart-library="easypiechart"
-                     data-title="Net Inbound"
-                     data-width="15%"
-                     data-before="0"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.net.mainhead"
-                ></div>
-                <div data-netdata="system.net"
-                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
-                     data-dimensions="sent"
-                     data-chart-library="easypiechart"
-                     data-title="Net Inbound"
-                     data-before="0"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-common-units="system.net.mainhead"
                 ></div>
                 <div data-netdata="system.ram"
                      data-host="http://ouya-122.frp.tronclass.com.cn:19999"
@@ -334,25 +312,9 @@
                      data-colors="#EE9911"
                 ></div>
             </div>
-            <div style="width: 49%; height:100%; align: center; display: inline-block;">
-                <a href="http://ouya-129.frp.tronclass.com.cn:19999">http://ouya-129.frp.tronclass.com.cn:19999</a>
-                <br/>
-                <div data-netdata="system.swap"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
-                     data-append-options="percentage"
-                     data-dimensions="used"
-                     data-chart-library="easypiechart"
-                     data-title="Used Swap"
-                     data-units="%"
-                     data-easypiechart-max-value="100"
-                     data-width="15%"
-                     data-before="0"
-                     data-after="-540"
-                     data-points="540"
-                     data-colors="#DD4400"
-                ></div>
+            <div>
                 <div data-netdata="system.io"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
                      data-dimensions="in"
                      data-chart-library="easypiechart"
                      data-title="Disk Read"
@@ -363,7 +325,7 @@
                      data-common-units="system.io.mainhead"
                 ></div>
                 <div data-netdata="system.io"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
                      data-dimensions="out"
                      data-chart-library="easypiechart"
                      data-title="Disk Write"
@@ -373,19 +335,8 @@
                      data-points="540"
                      data-common-units="system.io.mainhead"
                 ></div>
-                <div data-netdata="system.cpu"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
-                     data-chart-library="gauge"
-                     data-title="CPU"
-                     data-units="%"
-                     data-gauge-max-value="100"
-                     data-width="30%"
-                     data-after="-540"
-                     data-points="540"
-                     data-colors="#22AA99"
-                ></div>
                 <div data-netdata="system.net"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
                      data-dimensions="received"
                      data-chart-library="easypiechart"
                      data-title="Net Inbound"
@@ -396,7 +347,7 @@
                      data-common-units="system.net.mainhead"
                 ></div>
                 <div data-netdata="system.net"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
                      data-dimensions="sent"
                      data-chart-library="easypiechart"
                      data-title="Net Inbound"
@@ -405,162 +356,176 @@
                      data-after="-540"
                      data-points="540"
                      data-common-units="system.net.mainhead"
-                ></div>
-                <div data-netdata="system.ram"
-                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
-                     data-dimensions="used|buffers|active|wired"
-                     data-append-options="percentage"
-                     data-chart-library="easypiechart"
-                     data-title="Used RAM"
-                     data-easypiechart-max-value="100"
-                     data-width="15%"
-                     data-after="-540"
-                     data-points="540"
-                     data-units="%"
-                     data-colors="#EE9911"
                 ></div>
             </div>
         </div>
-<div style="width: 100%; text-align: center; display: inline-block;">
+        <div style="width: 49%; height:100%; align: center; display: inline-block;" class="item">
+            <a href="http://ouya-129.frp.tronclass.com.cn:19999">Web-02 Server</a>
+            <br/>
+            <div>
+                <div data-netdata="system.swap"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-append-options="percentage"
+                     data-dimensions="used"
+                     data-chart-library="easypiechart"
+                     data-title="Used Swap"
+                     data-units="%"
+                     data-easypiechart-max-value="100"
+                     data-width="15%"
+                     data-before="0"
+                     data-after="-540"
+                     data-points="540"
+                     data-colors="#DD4400"
+                ></div>
+                <div data-netdata="system.cpu"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-chart-library="gauge"
+                     data-title="CPU"
+                     data-units="%"
+                     data-gauge-max-value="100"
+                     data-width="30%"
+                     data-after="-540"
+                     data-points="540"
+                     data-colors="#22AA99"
+                ></div>
+                <div data-netdata="system.ram"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-dimensions="used|buffers|active|wired"
+                     data-append-options="percentage"
+                     data-chart-library="easypiechart"
+                     data-title="Used RAM"
+                     data-easypiechart-max-value="100"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-units="%"
+                     data-colors="#EE9911"
+                ></div>
+            </div>
+            <div>
+                <div data-netdata="system.io"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-dimensions="in"
+                     data-chart-library="easypiechart"
+                     data-title="Disk Read"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.io.mainhead"
+                ></div>
+                <div data-netdata="system.io"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-dimensions="out"
+                     data-chart-library="easypiechart"
+                     data-title="Disk Write"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.io.mainhead"
+                ></div>
+                <div data-netdata="system.net"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-dimensions="received"
+                     data-chart-library="easypiechart"
+                     data-title="Net Inbound"
+                     data-width="15%"
+                     data-before="0"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.net.mainhead"
+                ></div>
+                <div data-netdata="system.net"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-dimensions="sent"
+                     data-chart-library="easypiechart"
+                     data-title="Net Inbound"
+                     data-before="0"
+                     data-width="15%"
+                     data-after="-540"
+                     data-points="540"
+                     data-common-units="system.net.mainhead"
+                ></div>
+            </div>
 
-    <div style="width: 100%; height: 24vh; text-align: center; display: inline-block;">
-    <div style="width: 100%; height: 15px; text-align: center; display: inline-block;">
-    <b>CPU On both servers</b>
+        </div>
     </div>
-    <div style="width: 100%; height: calc(100% - 15px); text-align: center; display: inline-block;">
-    <br/>
-    <div data-netdata="system.cpu"
-            data-host="http://ouya-122.frp.tronclass.com.cn:19999"
-            data-title="CPU usage of ouya-122"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="system.cpu"
-    data-host="http://ouya-128.frp.tronclass.com.cn:19999"
-    data-title="CPU usage of ouya-128"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="system.cpu"
-    data-host="http://ouya-129.frp.tronclass.com.cn:19999"
-    data-title="CPU usage of ouya-129"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="system.cpu"
-    data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-    data-title="CPU usage of ouya-138"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
+    <div style="width: 100%; text-align: center; margin-top:10px;display: inline-block;" class="server">
+        <div style="width: 100%; height: 25vh; text-align: center; display: inline-block;">
+            <h10>欧亚Web</h10>
+            <div style="width: 100%; height: calc(100% - 25px); text-align: center; display: inline-block;">
+                <div data-netdata="system.cpu"
+                     data-host="http://ouya-122.frp.tronclass.com.cn:19999"
+                     data-title="Web-01 Cpu Usage"
+                     data-chart-library="dygraph"
+                     data-width="49%"
+                     data-height="100%"
+                     data-after="-300"
+                     data-dygraph-valuerange="[0, 100]"
+                ></div>
+                <div data-netdata="system.cpu"
+                     data-host="http://ouya-129.frp.tronclass.com.cn:19999"
+                     data-title="Web-02 Cpu Usages"
+                     data-chart-library="dygraph"
+                     data-width="49%"
+                     data-height="100%"
+                     data-after="-300"
+                     data-dygraph-valuerange="[0, 100]"
+                ></div>
+            </div>
+        </div>
+    </div>
+    <div style="width: 100%; text-align: center; margin-top:10px;display: inline-block;" class="server">
+        <div style="width: 100%; height: 25vh; text-align: center; display: inline-block;">
+            <h10>Mysql</h10>
+            <div style="width: 100%; height: calc(100% - 25px); text-align: center; display: inline-block;">
+                <div data-netdata="mysql_local.queries"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-title="Eurasia Mysql Queries"
+                     data-chart-library="dygraph"
+                     data-width="49%"
+                     data-height="100%"
+                     data-after="-300"
+                     data-dygraph-valuerange="[0, 100]"
+                ></div>
+                <div data-netdata="mysql_local.threads"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-title="Eurasia Mysql threads"
+                     data-chart-library="dygraph"
+                     data-width="49%"
+                     data-height="100%"
+                     data-after="-300"
+                     data-dygraph-valuerange="[0, 100]"
+                ></div>
+            </div>
+        </div>
+        <div style="width: 100%; height: 25vh; text-align: center; display: inline-block;">
+            <h10>Redis</h10>
+            <div style="width: 100%; height: calc(100% - 25px); text-align: center; display: inline-block;">
+                <div data-netdata="redis_local.operations"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-title="Eurasia Redis operations"
+                     data-chart-library="dygraph"
+                     data-width="49%"
+                     data-height="100%"
+                     data-after="-300"
+                     data-dygraph-valuerange="[0, 100]"
+                ></div>
+                <div data-netdata="redis_local.keys"
+                     data-host="http://ouya-138.frp.tronclass.com.cn:19999"
+                     data-title="Eurasia Redis keys"
+                     data-chart-library="dygraph"
+                     data-width="49%"
+                     data-height="100%"
+                     data-after="-300"
+                     data-dygraph-valuerange="[0, 100]"
+                ></div>
+            </div>
+
+        </div>
     </div>
 
-    </div>
-    <div style="width: 100%; height: 24vh; text-align: center; display: inline-block;">
-    <div style="width: 100%; height: 15px; text-align: center; display: inline-block;">
-    <b>Disk I/O on both servers</b>
-    </div>
-    <div style="width: 100%; height: calc(100% - 15px); text-align: center; display: inline-block;">
-    <div data-netdata="system.io"
-    data-host="http://ouya-122.frp.tronclass.com.cn:19999"
-    data-title="Total Disk I/O of ouya-122"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="system.io"
-    data-host="http://ouya-128.frp.tronclass.com.cn:19999"
-    data-title="Total Disk I/O of ouya-128"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="system.io"
-    data-host="http://ouya-129.frp.tronclass.com.cn:19999"
-    data-title="Total Disk I/O of ouya-129"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="system.io"
-    data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-    data-title="Total Disk I/O of ouya-138"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
 
-    </div>
-    </div>
-    <div style="width: 100%; height: 24vh; text-align: center; display: inline-block;">
-    <div style="width: 100%; height: 15px; text-align: center; display: inline-block;">
-    <b>Mysql Monitor</b>
-    </div>
-    <div style="width: 100%; height: calc(100% - 15px); text-align: center; display: inline-block;">
-    <div data-netdata="mysql_local.queries"
-    data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-    data-title="Eurasia Mysql Queries"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="mysql_local.threads"
-    data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-    data-title="Eurasia Mysql threads"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    </div>
-    </div>
-    <div style="width: 100%; height: 24vh; text-align: center; display: inline-block;">
-    <div style="width: 100%; height: 15px; text-align: center; display: inline-block;">
-    <b>Redis Monitor</b>
-    </div>
-    <div style="width: 100%; height: calc(100% - 15px); text-align: center; display: inline-block;">
-    <div data-netdata="redis_local.operations"
-    data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-    data-title="Eurasia Redis operations"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    <div data-netdata="redis_local.keys"
-    data-host="http://ouya-138.frp.tronclass.com.cn:19999"
-    data-title="Eurasia Redis keys"
-    data-chart-library="dygraph"
-    data-width="49%"
-    data-height="100%"
-    data-after="-300"
-    data-dygraph-valuerange="[0, 100]"
-    ></div>
-    </div>
-    </div>
 </body>
 </html>
