@@ -43,9 +43,4 @@ class Service(ExecutableService):
         else:
             return_code = p.wait()
 
-        if return_code == 0:
-            try:
-                Popen(['rm', self.file_path])
-            except Exception as error:
-                self.error('Executing command touch file resulted in error: {error}'.format(error=error))
         return return_code
