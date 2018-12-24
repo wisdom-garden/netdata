@@ -4,19 +4,19 @@ ORDER = ['schedulers', 'workers', 'queues']
 
 CHARTS = {
     'schedulers': {
-        'options': [None, 'rq schedulers', 'scheduler', 'schedulers', 'rq:schedulers', 'line'],
+        'options': [None, 'rq schedulers', 'scheduler', 'schedulers', 'rq.schedulers', 'line'],
         'lines': [
             # lines are created dynamically in `check()` method
         ]},
 
     'workers': {
-        'options': [None, 'rq workers', 'worker', 'workers', 'rq:workers', 'line'],
+        'options': [None, 'rq workers', 'worker', 'workers', 'rq.workers', 'line'],
         'lines': [
             # lines are created dynamically in `check()` method
         ]},
 
     'queues': {
-        'options': [None, 'rq queues', 'queue', 'queues', 'rq:queues', 'line'],
+        'options': [None, 'rq queues', 'queue', 'queues', 'rq.queues', 'line'],
         'lines': [
             # lines are created dynamically in `check()` method
         ]}

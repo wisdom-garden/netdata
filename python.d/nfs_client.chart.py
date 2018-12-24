@@ -2,7 +2,6 @@
 # Description:  varnish netdata python.d module
 # Author: l2isbad
 from bases.FrameworkServices.ExecutableService import ExecutableService
-from subprocess import Popen
 
 
 class Service(ExecutableService):
@@ -17,30 +16,13 @@ class Service(ExecutableService):
                 ]
             }
         }
-        self.file_path = self.configuration.get('file_path')
 
     def _get_data(self):
         """
         Format data received from shell command
         :return: dict
         """
-        return_code = self._get_raw_data()
-
         data = dict()
-        data['folder_status'] = return_code
+        data['folder_status'] = 1 if self._get_raw_data(stderr=True) else 0
 
         return data
-
-    def _get_raw_data(self, stderr=False):
-        """
-        Get result from executed command, 0 means succeed, 1 means failed
-        """
-        try:
-            p = Popen([self.configuration.get('command', 'touch'), self.file_path])
-        except Exception as error:
-            self.error('Executing command touch file resulted in error: {error}'.format(error=error))
-            return_code = p.wait()
-        else:
-            return_code = p.wait()
-
-        return return_code
