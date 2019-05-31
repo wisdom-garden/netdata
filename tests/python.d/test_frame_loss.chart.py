@@ -1,9 +1,11 @@
 import os
 from bases.loaders import ModuleAndConfigLoader
 
+
 PYTHON_MODULES_DIR = os.path.abspath(__file__ + '/../../../python.d')
 loader = ModuleAndConfigLoader()
-mod = loader.load_module_from_file("roomis_device", PYTHON_MODULES_DIR + '/' + 'roomis_device.chart.py')[0]
+mod = loader.load_module_from_file("frame_loss", PYTHON_MODULES_DIR + '/' + 'frame_loss.chart.py')[0]
+
 
 if __name__ == '__main__':
     BASE_CONFIG = {
@@ -12,15 +14,14 @@ if __name__ == '__main__':
         'priority': 60000,
         'autodetection_retry': 0,
         'chart_cleanup': 10,
-        'name': 'roomis_device'
+        'name': 'frame_loss'
     }
 
     config = {
-        'job_name': 'roomis_device',
+        'job_name': 'frame_loss',
         'timeout': 10,
-        "override_name": "roomis_device",
-        'url': 'http://console.qa.roomis.com.cn/api/devices/health',
-        'header': {'X-Consumer-Custom-ID': 'k12'}
+        "override_name": "frame_loss",
+        'url': 'http://94217661.ngrok.io/d/detect-video-sync'
     }
 
     config.update(BASE_CONFIG)

@@ -1,9 +1,11 @@
 import os
 from bases.loaders import ModuleAndConfigLoader
 
+
 PYTHON_MODULES_DIR = os.path.abspath(__file__ + '/../../../python.d')
 loader = ModuleAndConfigLoader()
-mod = loader.load_module_from_file("roomis_device", PYTHON_MODULES_DIR + '/' + 'roomis_device.chart.py')[0]
+mod = loader.load_module_from_file("nvr", PYTHON_MODULES_DIR + '/' + 'nvr.chart.py')[0]
+
 
 if __name__ == '__main__':
     BASE_CONFIG = {
@@ -12,15 +14,20 @@ if __name__ == '__main__':
         'priority': 60000,
         'autodetection_retry': 0,
         'chart_cleanup': 10,
-        'name': 'roomis_device'
+        'name': 'nvr'
     }
 
     config = {
-        'job_name': 'roomis_device',
+        'job_name': 'nvr',
         'timeout': 10,
-        "override_name": "roomis_device",
-        'url': 'http://console.qa.roomis.com.cn/api/devices/health',
-        'header': {'X-Consumer-Custom-ID': 'k12'}
+        "override_name": 'nvr',
+        'api_host': '120.27.105.241',
+        'api_port': '28000',
+        'device_host': '120.27.105.241',
+        'device_port': '18000',
+        'username': 'admin',
+        'password': 'MAeo9HwRu',
+        'channels': '33,34,35,36,38'
     }
 
     config.update(BASE_CONFIG)

@@ -1,9 +1,11 @@
 import os
 from bases.loaders import ModuleAndConfigLoader
 
+
 PYTHON_MODULES_DIR = os.path.abspath(__file__ + '/../../../python.d')
 loader = ModuleAndConfigLoader()
-mod = loader.load_module_from_file("roomis_device", PYTHON_MODULES_DIR + '/' + 'roomis_device.chart.py')[0]
+mod = loader.load_module_from_file("httpcheck", PYTHON_MODULES_DIR + '/' + 'httpcheck.chart.py')[0]
+
 
 if __name__ == '__main__':
     BASE_CONFIG = {
@@ -19,8 +21,7 @@ if __name__ == '__main__':
         'job_name': 'roomis_device',
         'timeout': 10,
         "override_name": "roomis_device",
-        'url': 'http://console.qa.roomis.com.cn/api/devices/health',
-        'header': {'X-Consumer-Custom-ID': 'k12'}
+        'url': 'http://www.baidu.com'
     }
 
     config.update(BASE_CONFIG)

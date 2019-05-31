@@ -93,10 +93,6 @@ class Service(UrlService):
 
             self.process_response(content, data, status)
 
-        # except urllib3.exceptions.NewConnectionError as error:
-        #     self.debug("Connection failed: {url}. Error: {error}".format(url=url, error=error))
-        #     data[HTTP_NO_CONNECTION] = 1
-
         except (urllib3.exceptions.TimeoutError, urllib3.exceptions.PoolError) as error:
             self.debug("Connection timed out: {url}. Error: {error}".format(url=url, error=error))
             data[HTTP_TIMEOUT] = 1

@@ -26,14 +26,14 @@ ORDER = ['on_line', 'off_line']
 
 CHARTS = {
     'on_line': {
-        'options': [None, 'On line device', 'units', 'count', 'roomis_device.on_line', 'line'],
+        'options': [None, 'On line device', 'count', 'On line device', 'roomis_device.on_line', 'line'],
         'lines': [
-            [ONLINE, 'no connection', 'absolute']
+            [ONLINE, 'On line', 'absolute']
         ]},
     'off_line': {
-        'options': [None, 'Off line device', 'units', 'count', 'roomis_device.off_line', 'line'],
+        'options': [None, 'Off line device', 'count', 'OFF line device', 'roomis_device.off_line', 'line'],
         'lines': [
-            [OFFLINE, 'no connection', 'absolute']
+            [OFFLINE, 'OFF line', 'absolute']
         ]
     }
 }
@@ -54,9 +54,8 @@ class Service(UrlService):
             status, content = self._get_raw_data_with_status(retries=1 if self.follow_redirect else False,
                                                              redirect=self.follow_redirect)
             content = json.loads(content)
-
-            data[ONLINE] = content['on']
-            data[OFFLINE] = content['off']
-        except ConnectionError:
+            data[ONLINE] = content['ok']
+            data[OFFLINE] = content['offline']
+        except:
             return None
         return data
